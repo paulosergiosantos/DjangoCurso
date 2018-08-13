@@ -43,7 +43,7 @@ def calcular_horas(start, end):
     if start and end:
         diff = end - start
         diff_hours = int(diff / timedelta(hours=1))
-        
+
     return diff_hours
 
 @register.filter(name="calcularTempoUso")

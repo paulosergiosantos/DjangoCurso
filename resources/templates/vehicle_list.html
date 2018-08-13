@@ -7,7 +7,6 @@
 {% block content %} 
     <table>
         <thead>
-            <th>ID</th>
             <th>Veículo</th>
             <th>Placa</th>
             <th>Fabricante</th>
@@ -16,9 +15,8 @@
         <tbody>
             {% for entry in vehicle_list %}
             <tr>
-                <td><a title="Editar" href="{% url 'vehicle_update' entry.id %}">{{ entry.id }}</a></td>
                 <td>{{ entry.name | maiusculo}}</td>
-                <td>{{ entry.plate | formatPlaca}}</td>
+                <td><a title="Editar" href="{% url 'vehicle_update' entry.id %}">{{ entry.plate | formatPlaca | maiusculo}}</a></td>
                 <td>{{ entry.manufacturer | maiusculo}}</td>
                 <td><a class="glyphicon glyphicon-trash" href="{% url 'vehicle_delete' entry.id %}"/></td>
             </tr>

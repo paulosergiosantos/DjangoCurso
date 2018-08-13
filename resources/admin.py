@@ -5,6 +5,7 @@ from django.contrib import admin
 
 from .models import (Driver, ManagerControl, Manufacturer, UseControl, User,
                      Vehicle)
+from .templatetags.resources_extras import formatar_placa, converter_maiusculo
 
 # Register your models here.
 
@@ -18,8 +19,20 @@ class VechicleAdmin(admin.ModelAdmin):
     """
     VechicleAdmin
     """
-    list_display = ('name', 'plate', 'manufacturer')
+    list_display = ('name', 'placa', 'fabricante')
     list_per_page = 5
+
+    def placa(self, instance):
+        """
+        Formata a placa
+        """
+        return formatar_placa(instance.plate)
+
+    def fabricante(self, instance):
+        """
+        Fabricante maiusculo
+        """
+        return converter_maiusculo(instance.manufacturer)
 
 class UseControlAdmin(admin.ModelAdmin):
     """
