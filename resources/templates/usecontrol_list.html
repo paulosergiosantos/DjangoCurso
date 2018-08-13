@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load resources_extras %}
+
+{% block title %}Controle de uso dos Veículos{% endblock %}
+
+{% block content %} 
+    <table>
+        <thead>
+            <th>Veículo</th>
+            <th>Motorista</th>
+            <th>Início</th>
+            <th>Fim</th>
+            <th>Horas de Uso</th>
+        </thead>
+        <tbody>
+            {% for entry in usecontrols %}
+                <tr>
+                    <td>{{ entry.vehicle.name | maiusculo}}</td>
+                    <td>{{ entry.driver.name | maiusculo}}</td>
+                    <td>{{ entry.date_started | date:'d/m/Y H:i' }}</td>
+                    <td>{{ entry.date_ended | date:'d/m/Y H:i' }}</td>
+                    <td>{{ entry | calcularTempoUso }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Nenhuma viagem</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock%}

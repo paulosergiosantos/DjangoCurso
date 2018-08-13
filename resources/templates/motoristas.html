@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load resources_extras %}
+
+{% block title %}Motoristas{% endblock %}
+
+{% block content %} 
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CNH</th>
+            <th>Data habilitação</th>
+            <th>Tempo habilitação</th>
+        </thead>
+        <tbody>
+            {% for entry in drivers %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.name | maiusculo}}</td>
+                <td>{{ entry.cnh }}</td>
+                <td>{{ entry.cnh_emissao | date:'d/m/Y'}}</td>
+                <td>{{ entry.cnh_emissao | calcularIdade}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock%}

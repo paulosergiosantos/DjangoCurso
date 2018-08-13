@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        <title>{% block title %} Controle de Frota {% endblock %}</title>
+    </head>
+
+    <body>
+        <div id="header">
+            <h1>Controle de Frota</h1>
+        </div>
+
+        <div id="sidebar">
+            {% block sidebar %}
+            <ul>
+                <li>
+                    <a href="/frota">Home</a>
+                </li>
+                <li>
+                    <a href="/frota/usuarios">Usuários</a>
+                </li>                   
+                <li>
+                    <a href="/frota/veiculos">Veículos</a>
+                </li>
+                <li>
+                    <a href="/frota/motoristas">Motoristas</a>
+                </li>   
+                <li>
+                    <a href="/frota/usecontrol">Controle Viagens</a>
+                </li>                   
+                <li>
+                    <a href="/servicedesk">Service Desk</a>
+                </li>                                            
+            </ul>
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block content %} 
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load resources_extras %}
+{% load vehicle_tags %}
+
+{% block title %}Veículos{% endblock %}
+
+{% block content %} 
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Veículo</th>
+            <th>Placa</th>
+            <th>Fabricante</th>
+        </thead>
+        <tbody>
+            {% get_vehicles as vehicles %}
+            {% for entry in vehicles %}
+            <tr>
+                <td>{{ entry.id}}</td>
+                <td>{{ entry.name | maiusculo}}</td>
+                <td>{{ entry.plate | formatPlaca}}</td>
+                <td>{{ entry.manufacturer | maiusculo}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock%}
