@@ -1,9 +1,13 @@
 """
 Views para app resources
 """
-from django.views.generic.base import TemplateView
+from django.urls import reverse
 from django.shortcuts import render
-from resources.models import Driver, User, UseControl
+from django.views.generic import ListView
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
+from resources.models import Driver, UseControl, User, Vehicle
 
 # Create your views here.
 
@@ -40,7 +44,6 @@ def usecontrol_add(request):
     """
     adiciona entra na tabela usecontrol
     """
-    pass
 
 def usecontrol_list(request):
     """
@@ -60,4 +63,42 @@ class UseControlView(TemplateView):
         context = super(UseControlView, self).get_context_data(**kwargs)
         context["usecontrols"] = UseControl.objects.all()
         return context
-        
+
+class VehicleCreateView(CreateView): # pylint: disable=too-many-ancestors
+    """
+    View para tratar HTTP POST para veiculo
+    """
+    model = Vehicle
+    template_name = "vehicle_form.html"
+    fields = ["name", "plate", "manufacturer"]
+
+    def get_success_url(self):
+        return reverse('vehicle_list')
+
+
+class VehicleUpdateView(UpdateView): # pylint: disable=too-many-ancestors
+    """
+    View para tratar HTTP PUT para veiculo
+    """
+    model = Vehicle
+    template_name = "vehicle_form.html"
+    fields = ["name", "plate", "manufacturer"]
+    def get_success_url(self):
+        return reverse('vehicle_list')
+
+class VehicleDeleteView(DeleteView): # pylint: disable=too-many-ancestors
+    """
+    View para tratar HTTP DELETE para veiculo
+    """
+    model = Vehicle
+    template_name = "vehicle_confirm_delete.html"
+    def get_success_url(self):
+        return reverse('vehicle_list')
+
+class VehicleListView(ListView): # pylint: disable=too-many-ancestors
+    """
+     View para tratar HTTP GET para veiculo
+    """
+    model = Vehicle
+    template_name = "vehicle_list.html"
+    queryset = Vehicle.objects.order_by("plate")

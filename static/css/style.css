@@ -68,3 +68,11 @@ table th {
     background: linear-gradient(#284858, #a7c7d7);
     color: black;
 }
+
+th.actions {
+    width: 15px;
+}
+
+input {
+    border-radius: 1%;
+}

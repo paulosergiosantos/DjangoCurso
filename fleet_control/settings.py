@@ -94,10 +94,10 @@ DATABASES_CONF = {
     },
 }
 
-DATABASE_DEAFULT = "sqlite"
+DATABASE_DEFAULT = "sqlite"
 
 DATABASES = {
-    'default': DATABASES_CONF[DATABASE_DEAFULT]
+    'default': DATABASES_CONF[DATABASE_DEFAULT]
 }
 
 

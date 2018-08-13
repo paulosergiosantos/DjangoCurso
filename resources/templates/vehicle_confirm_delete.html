@@ -1,0 +1,5 @@
+<h3>Deseja realmente remover?</h3>
+<form action="" method="POST">{% csrf_token %}
+    <input type="submit" value="Sim" />
+    <input type="button" value="Não" onclick="window.history.go(-1);"/>
+</form>

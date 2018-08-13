@@ -2,6 +2,7 @@
 """
 Definição dos Models
 """
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -10,17 +11,23 @@ class Driver(models.Model):
     """
     Tabela resources_driver
     """
-    name = models.CharField(max_length=50, unique=True)
-    cnh = models.CharField(max_length=30, unique=True)
-    cnh_emissao = models.DateField()
+    class Meta:
+        verbose_name = 'Motorista'
+
+    name = models.CharField(max_length=50, unique=True, verbose_name="Nome")
+    cnh = models.CharField(max_length=30, unique=True, verbose_name="CNH")
+    cnh_emissao = models.DateField(verbose_name="Data emissão CNH")
 
     def __str__(self):
-        return ",".join((str(id), str(self.name), str(self.cnh), str(self.cnh_emissao)))
+        return self.name
 
 class Manufacturer(models.Model):
     """
     Tabela resources_manufacturer
     """
+    class Meta:
+        verbose_name = 'Fabricante'
+
     name = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
@@ -30,22 +37,25 @@ class Vehicle(models.Model):
     """
     Tabela resources_vehicle
     """
-    manufacturer = models.ForeignKey("Manufacturer", on_delete="")
-    name = models.CharField(max_length=30, unique=True)
-    plate = models.CharField(max_length=8, unique=True)
+    class Meta:
+        verbose_name = 'Veículo'
+
+    manufacturer = models.ForeignKey("Manufacturer", on_delete="", verbose_name="Fabricante")
+    name = models.CharField(max_length=30, unique=True, verbose_name="Nome")
+    plate = models.CharField(max_length=8, unique=True, verbose_name="Placa")
     usecontrols = models.ManyToManyField(Driver, through="UseControl")
 
     def __str__(self):
-        return ",".join((str(id), str(self.name), str(self.plate), str(self.manufacturer)))
+        return ",".join((str(self.name), "Placa: " + str(self.plate)))
 
 class UseControl(models.Model):
     """
     Tabela resources_usecontrol
     """
-    driver = models.ForeignKey(Driver, on_delete="")
-    vehicle = models.ForeignKey(Vehicle, on_delete="")
-    date_started = models.DateTimeField(auto_now_add=True)
-    date_ended = models.DateTimeField(blank=True, null=True)
+    driver = models.ForeignKey(Driver, on_delete="", verbose_name="Motorista")
+    vehicle = models.ForeignKey(Vehicle, on_delete="", verbose_name="Veículo")
+    date_started = models.DateTimeField(auto_now_add=False, verbose_name="Data Início")
+    date_ended = models.DateTimeField(blank=True, null=True, verbose_name="Data Entrega")
 
 class User(models.Model):
     """
@@ -56,4 +66,14 @@ class User(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return ",".join((str(id), str(self.name), str(self.phone), str(self.email)))
+        return ",".join((str(self.name), str(self.phone), str(self.email)))
+
+class ManagerControl(models.Model):
+    """
+    Tabela resources_managercontrol
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True, on_delete="")
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return ",".join((self.user.username, str(self.name)))

@@ -6,6 +6,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}" />
         <title>{% block title %} Controle de Frota {% endblock %}</title>
     </head>
 
@@ -24,8 +25,11 @@
                     <a href="/frota/usuarios">Usuários</a>
                 </li>                   
                 <li>
-                    <a href="/frota/veiculos">Veículos</a>
+                    <a href="/frota/veiculos/list">Veículos</a>
                 </li>
+                <li>
+                    <a href="/frota/veiculos/add">Adiciona Veículo</a>
+                </li>                
                 <li>
                     <a href="/frota/motoristas">Motoristas</a>
                 </li>   
@@ -43,5 +47,5 @@
             {% block content %} 
             {% endblock %}
         </div>
-    </body>
+     </body>
 </html>
